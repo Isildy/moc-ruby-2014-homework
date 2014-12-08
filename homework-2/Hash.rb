@@ -1,34 +1,33 @@
-#coding: utf-8
 
 class PhoneBook
 	
-	@@phoneBook = {"Иван" => "45-11-23", "Феофан" => "45-23-12", "Ануфрий" => "45-28-24", "Аббадон" => "69-22-96"}
+	@@phoneBook = {"Ivan" => "45-11-23", "Feofan" => "45-23-12", "Anufriy" => "45-28-24", "Abbadon" => "69-22-96"}
 	
 	def newLine(name, phone_namber)	
 		@@phoneBook[name] = phone_namber
-		p "Добавлена новая запись в телефонную книгу - #{name} - #{phone_namber}"
+		p "Added a new entry in the phone book - #{name} - #{phone_namber}"
 	end
 	
 	def show
-	    p "Имя       Номер"
+	    p "Name       Phone Number"
 		@@phoneBook.each {|x,y| print  "#{x}   -  #{y}\n"}
 	end 
 	
 	def find(name)
 		p @@phoneBook
 		if @@phoneBook.include?(name) == false 
-			p "Абонент не зарегестрирован"
+			p "The subscriber is not registered"
 		  else
-			p "Номер абонента #{name}- #{@@phoneBook[name]}"
+			p "#{name} phone number #{@@phoneBook[name]}"
 		end
 	end
 	
 	def delete(line)
 		if @@phoneBook.include?(line) == false 
-			p "Запись не найдена"
+			p "Record not found"
 		else
 			@@phoneBook.delete_if {|x, y| x==line || y==line}
-			p "Запись удалена "					
+			p "The record is deleted "					
 		end
 	end
 end

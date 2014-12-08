@@ -1,26 +1,25 @@
-#coding: utf-8
 
 class NameList
 
-	@@nameList = ["Бобик", "Шарик", "Мухтар", "Евлампия", "Мария Кюрри", "Анатолий Петрович Шварценгольд"]
+	@@nameList = ["Bobik", "Sharik", "Muhtar", "Evlampiya","Mary Currie","Anatoly Petrovich Shvartsengold"]
 
 	def showList
 		@@nameList.map {|x| print "#{@@nameList.index(x)+1} - #{x}\n" }
 	end
 	
 	def addName(name)	
-		name.split.each{|x| if x =~/[0-9]/ then return puts "Имя не может содержать цифры" end } 
+		name.split.each{|x| if x =~/[0-9]/ then return puts "The name can not contain numbers" end } 
 		@@nameList << name		
-		puts "В список добавленно новое имя - #{name}. Теперь в списке #{@@nameList.size} имен"
+		puts "In the list of added a new name - # {name}. Now in the list of # {@@nameList.size} names"
 	end
 
 	def limitTheList (size)
 		if @@nameList.length <= size then
-			p "Список в пределах нормы"
+			p "List in the normal range"
 			showList 
 			else
 			@@nameList.pop(@@nameList.length-size)
-			p "Список уменьшен до #{size} имен"
+			p "The list is reduced to # {size} names"
 			showList
 		end
 	end	
@@ -38,4 +37,3 @@ class NameList
 	
 end
 
-NameList.new.randomList(2)
