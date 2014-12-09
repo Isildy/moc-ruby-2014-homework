@@ -1,39 +1,53 @@
 
 class NameList
 
-	@@nameList = ["Bobik", "Sharik", "Muhtar", "Evlampiya","Mary Currie","Anatoly Petrovich Shvartsengold"]
-
-	def showList
-		@@nameList.map {|x| print "#{@@nameList.index(x)+1} - #{x}\n" }
+	def showList(nameList)
+		nameList.map {|x| print "#{nameList.index(x)+1} - #{x}\n" }
 	end
 	
-	def addName(name)	
+	def addName(nameList, name)	
 		name.split.each{|x| if x =~/[0-9]/ then return puts "The name can not contain numbers" end } 
-		@@nameList << name		
-		puts "In the list of added a new name - # {name}. Now in the list of # {@@nameList.size} names"
+		nameList << name		
+		puts "In the list of added a new name - #{name}. Now in the list of #{nameList.size} names"
 	end
 
-	def limitTheList (size)
-		if @@nameList.length <= size then
+	def limitTheList (nameList, sizeList)
+		if nameList.length <= sizeList then
 			p "List in the normal range"
-			showList 
+			showList(nameList) 
 			else
-			@@nameList.pop(@@nameList.length-size)
-			p "The list is reduced to # {size} names"
-			showList
+			nameList.pop(nameList.length-sizeList)
+			p "The list is reduced to # {sizeList} names"
+			showList(nameList)
 		end
 	end	
 
-	def randomList (*size)
-		@@nameList.shuffle!
-		if size[0] == nil
-			showList
+	def randomList (nameList,*sizeList)
+		nameList.shuffle!
+		if sizeList[0] == nil
+			showList(nameList)
 			else
-			limitTheList(size[0])
+			limitTheList(nameList, sizeList[0])
 		end
 	end
-
-
-	
 end
 
+nList = ["Bobik", "Sharik", "Muhtar", "Evlampiya","Mary Currie","Anatoly Petrovich Shvartsengold"]
+
+nl = NameList.new
+nl.showList(nList)
+p "=============================================="
+p "Add Lilia to list"
+nl.addName(nList, "Lilia")
+p "=============================================="
+p "list limited to 8"
+nl.limitTheList(nList, 8)
+p "=============================================="
+p "list limited to 5"
+nl.limitTheList(nList, 5)
+p "=============================================="
+p "Random list"
+nl.randomList(nList)
+p "=============================================="
+p "Random list limited to 3"
+nl.randomList(nList, 3)
