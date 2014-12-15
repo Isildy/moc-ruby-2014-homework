@@ -37,10 +37,22 @@ end
 end
 
 
+	RESPONSE = '{"person":{"personal_data":{"name": "John Smith", "gender":"male", "age":56},
+							"social_profiles":["http://facebook/John Smith","http://twitter/John_Smith","http://John_Smith.com"],
+							"additional_info":{"hobby":["pubsurfing","drinking","hiking"], 
+												"pets":[{"name":"Mittens","species":"Felis silvestris catus"}]
+												}}}'	
 
- module Validator
+response = JSON.parse(RESPONSE)
+	if response.key?("person")
 
-	def	adult?(data)
+		person_object = Struct.new("Person", *response["person"].keys.collect(&:to_sym))
+
+		person = person_object.new(*response["person"].values)
+	end
+
+class PrintJSONinfo
+def	adult?(data)
 	    if data["personal_data"]["age"] < 15 
 			p "To yang"
 		elsif data["personal_data"]["age"] > 60
@@ -71,44 +83,25 @@ end
 			p "#{data["personal_data"]["name"]} likes #{hobby.join(", ")}"
 		end
 	end
-end
-
-	RESPONSE = '{"person":{"personal_data":{"name": "John Smith", "gender":"male", "age":56},
-							"social_profiles":["http://facebook/John Smith","http://twitter/John_Smith","http://John_Smith.com"],
-							"additional_info":{"hobby":["pubsurfing","drinking","hiking"], 
-												"pets":[{"name":"Mittens","species":"Felis silvestris catus"}]
-												}}}'	
-
-response = JSON.parse(RESPONSE)
-	if response.key?("person")
-
-		person_object = Struct.new("Person", *response["person"].keys.collect(&:to_sym))
-
-		person = person_object.new(*response["person"].values)
-	end
-
-
-class Print
-
-include Validator
 
 end
 
-Print.class_eval do
+PrintJSONinfo.class_eval do
 	
 	include AutoProfile
 	gen_methods(response["person"])
 end
 
 
-print = Print.new
-print.adult?(person)
-print.twitter_account?(person)
-print.have_hobbies?(person)
-p Print.instance_methods(false)
+print = PrintJSONinfo.new
+
+p PrintJSONinfo.instance_methods(false)
 print.personal_data
 print.social_profiles
 print.additional_info
 
+print.adult?(person)
+print.twitter_account?(person)
+print.have_hobbies?(person)
 
 
