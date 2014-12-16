@@ -36,7 +36,6 @@ end
   end
 end
 
-
 	RESPONSE = '{"person":{"personal_data":{"name": "John Smith", "gender":"male", "age":56},
 							"social_profiles":["http://facebook/John Smith","http://twitter/John_Smith","http://John_Smith.com"],
 							"additional_info":{"hobby":["pubsurfing","drinking","hiking"], 
