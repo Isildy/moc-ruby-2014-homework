@@ -1,105 +1,72 @@
 require 'json'
-module AutoProfile
-  module GenMethods
-	def gen_methods(methods)
-	  methods.each do |key, value| 
-		define_method key do
-		  p "#{key}:"
-		  if value.is_a?(Hash)
-			value.each{|key, value| p "      #{key}: " 
-			  if value.is_a?(Hash)
-			  value.each{|key, value| p "    #{key} - #{value}"}						
-			  elsif	
-			   value.is_a?(Array)
-			   value.each{|key| 
-				  if key.is_a?(Hash)
-				  key.each{|key, value| p "        #{key} - #{value}"}
-			   	  else
-				  p "        #{key}"
-				  end}
-				else
-				  p "           #{value}"
-			end}
-		  elsif	
-			value.is_a?(Array)
-			value.each{|key| p "      #{key}"} 
-		  else
-			p "#{value}"	
-	      end
+ module AutoProfile
+  module GladiatorsActions
+	def generate_actions(data)		
+	  data.each do |k, v| 
+		if v.is_a?(Hash)
+		   v.each do |k, v| 
+			if k == "name"
+		   define_method ("greeting") do
+		    p "Going to death #{v}, salute you!"
+		      end
+	   		elsif k == "weapon"
+	   			v.each do |v|
+	       		define_method ("attack_vis_#{v}") do
+	       	p "Being in a fighting stance, gladiator rushed to the attack swinging #{v}"
+	       	  end
+	       	  end
+	     	end
+	  	   end
+	    end
 	  end
-	end
+    end
   end
-end
-
   def self.included(base)
 	base.extend(GenMethods)
   end
 end
 
-	RESPONSE = '{"person":{"personal_data":{"name": "John Smith", "gender":"male", "age":56},
-							"social_profiles":["http://facebook/John Smith","http://twitter/John_Smith","http://John_Smith.com"],
-							"additional_info":{"hobby":["pubsurfing","drinking","hiking"], 
-												"pets":[{"name":"Mittens","species":"Felis silvestris catus"}]
+RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "age":27},
+							  "skills":["swordsman","spearman","bowmen"],
+							  "amunition":{"weapon":["trident","net","dagger"], 
+											"armor":[{"head":"no","torso":"belt","limbs":"braser"}]
 												}}}'	
 
-response = JSON.parse(RESPONSE)
-  if response.key?("person")
+	response = JSON.parse(RESPONSE)
+  
+ 
+ Gladiator = Struct.new(*response["gladiator"].keys.collect(&:to_sym)) do
 
-	person_object = Struct.new("Person", *response["person"].keys.collect(&:to_sym))
 
-	person = person_object.new(*response["person"].values)
+  def how_old?
+	p "His age is #{personal_data["age"]}"
   end
 
-class PrintJSONinfo
-  def	adult?(data)
-    if data["personal_data"]["age"] < 15 
-	 p "To yang"
-    elsif data["personal_data"]["age"] > 60
-	 p "To old"
-    else
-	 p "Age is #{data["personal_data"]["age"]}, evesing Ok"
-    end	
+  def spearman? 
+	p "Our gladiadiator #{skills.select{|x| x== "spearman" }[0]}! He will make a good retiarius"
   end
 
-  def twitter_account? (data)
-    twiter_acc = "no"
-	data["social_profiles"].each{|x| if x=~(/twitter\/\w+/) then twiter_acc = x end} 
-	if 
-      twiter_acc == "no"
-      p "#{data["personal_data"]["name"]} has no twitter account"
-	else
-	  p "Twiter account - #{twiter_acc}"
-    end
-  end
+  def have_weapon?
+	weapon = "no"
+	amunition.each{|x| Hash[*x].each_pair{|key, value| if key == "weapon" then weapon=value end}}			
+     p "Glagiator #{personal_data["name"]} is carrying a #{weapon.join(", ")}"	 
+   end
+ end
 
-  def have_hobbies?(data)
-	hobby = "no"
-	data["additional_info"].each{|x| Hash[*x].each_pair{|key, value| if key == "hobby" then hobby=value end}}			
-	 if 
-	  hobby == "no"
-	  p "#{data["personal_data"]["name"]} has no hobby"
-	 else
-      p "#{data["personal_data"]["name"]} likes #{hobby.join(", ")}"
-	 end
-  end
-end
-
-PrintJSONinfo.class_eval do
-	
+Gladiator.class_eval do
 	include AutoProfile
-	gen_methods(response["person"])
+	generate_actions (response["gladiator"])
 end
 
 
-print = PrintJSONinfo.new
+person = Gladiator.new(*response["gladiator"].values)
 
-p PrintJSONinfo.instance_methods(false)
-print.personal_data
-print.social_profiles
-print.additional_info
-
-print.adult?(person)
-print.twitter_account?(person)
-print.have_hobbies?(person)
-
+p person.public_methods(false)
+person.how_old?
+person.spearman?
+person.have_weapon?
+person.greeting
+person.attack_vis_trident
+person.attack_vis_net
+person.attack_vis_dagger
 
