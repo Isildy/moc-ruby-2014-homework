@@ -27,9 +27,9 @@ require 'json'
 end
 
 RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "age":27},
-							  "skills":["swordsman","spearman","bowmen"],
-							  "amunition":{"weapon":["trident","net","dagger"], 
-											"armor":[{"head":"no","torso":"belt","limbs":"braser"}]
+							"skills":["swordsman","spearman","bowmen"],
+							"amunition":{"weapon":["trident","net","dagger"], 
+										"armor":[{"head":"no","torso":"belt","limbs":"braser"}]
 												}}}'	
 
 	response = JSON.parse(RESPONSE)
