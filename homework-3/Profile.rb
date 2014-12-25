@@ -1,5 +1,5 @@
 require 'json'
- module AutoProfile
+ module Actions
   module GladiatorsActions
 	def generate_actions(data)		
 	  data.each do |k, v| 
@@ -22,13 +22,13 @@ require 'json'
     end
   end
   def self.included(base)
-	base.extend(GenMethods)
+	base.extend(GladiatorsActions)
   end
 end
 
 RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "age":27},
-							"skills":["swordsman","spearman","bowmen"],
-							"amunition":{"weapon":["trident","net","dagger"], 
+							  "skills":["swordsman","spearman","bowmen"],
+							  "amunition":{"weapon":["trident","net","dagger"], 
 										"armor":[{"head":"no","torso":"belt","limbs":"braser"}]
 												}}}'	
 
@@ -54,7 +54,7 @@ RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "a
  end
 
 Gladiator.class_eval do
-	include AutoProfile
+	include Actions
 	generate_actions (response["gladiator"])
 end
 
