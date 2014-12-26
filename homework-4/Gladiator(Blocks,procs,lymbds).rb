@@ -1,7 +1,7 @@
 require 'json'
  module Actions
   module GladiatorsActions
-	def generate_actions(data)		
+	def generate_actions(data, action)		
 	  data.each do |k, v| 
 		if v.is_a?(Hash)
 		   v.each do |k, v| 
@@ -11,8 +11,11 @@ require 'json'
 		      end
 	   		elsif k == "weapon"
 	   			v.each do |v|
-	       		define_method ("attack_vis_#{v}") do
-	       	p "Being in a fighting stance, gladiator rushed to the attack swinging #{v}"
+	       		 if v == "trident"
+	       		 	action.each_value {|value| value.call(v)}
+	       		 	#actions.each_pair{|action, way| trident_act.call(action, way)}
+	       		#define_method ("attack_vis_#{v}") do
+	       		#	p "Being in a fighting stance, gladiator rushed to the attack swinging #{v}"
 	       	  end
 	       	  end
 	     	end
@@ -35,6 +38,7 @@ RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "a
 	response = JSON.parse(RESPONSE)
   
  
+
  Gladiator = Struct.new(*response["gladiator"].keys.collect(&:to_sym)) do
 
 
@@ -53,20 +57,36 @@ RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "a
    end
  end
 
+
 Gladiator.class_eval do
 	include Actions
-	generate_actions (response["gladiator"])
+	
+	trident_actions = {:attack => Proc.new{ |weapon| p "Strike #{weapon} in face"}, 
+					   :defance => Proc.new{ |weapon| p "Block #{weapon} weapon of the opponent"},
+					   :fint => Proc.new{ |weapon| p "Apply #{weapon} feint"} 
+						}
+
+	#tridentAct = lambda do
+	       	#define_method ("trident_#{action}") do
+	  #     	p "trident_{action}:{way}" end 	
+	       	#end
+ 
+	generate_actions(response["gladiator"], trident_actions)
 end
 
 
+
+					
+
 person = Gladiator.new(*response["gladiator"].values)
+
 
 p person.public_methods(false)
 person.how_old?
 person.spearman?
 person.have_weapon?
 person.greeting
-person.attack_vis_trident
-person.attack_vis_net
-person.attack_vis_dagger
+#person.attack_vis_trident
+#person.attack_vis_net
+#person.attack_vis_dagger
 
