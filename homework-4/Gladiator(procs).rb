@@ -1,7 +1,7 @@
 require 'json'
  module Actions
   module GladiatorsActions
-	def generate_actions(data, action)		
+	def generate_actions(data, actions)		
 	  data.each do |k, v| 
 		if v.is_a?(Hash)
 		   v.each do |k, v| 
@@ -11,11 +11,10 @@ require 'json'
 		      end
 	   		elsif k == "weapon"
 	   			v.each do |v|
-	       		 if v == "trident"
-	       		 	action.each_value {|value| value.call(v)}
-	       		 	#actions.each_pair{|action, way| trident_act.call(action, way)}
-	       		#define_method ("attack_vis_#{v}") do
-	       		#	p "Being in a fighting stance, gladiator rushed to the attack swinging #{v}"
+	       		 	actions.each_pair do|action, way| 
+	       		define_method ("#{action}_vis_#{v}") do
+	       						way.call(v)
+	       	  end
 	       	  end
 	       	  end
 	     	end
@@ -82,11 +81,18 @@ person = Gladiator.new(*response["gladiator"].values)
 
 
 p person.public_methods(false)
+print "\n"
+print "\n"
 person.how_old?
 person.spearman?
 person.have_weapon?
+print "\n"
+p "======== Gladiator enters the arena ========"
+print "\n"
 person.greeting
-#person.attack_vis_trident
-#person.attack_vis_net
-#person.attack_vis_dagger
+print "\n"
+p "======== Lets fight!!!!!!!!!!!!!!!! ========"
+person.fint_vis_trident
+person.defance_vis_net
+person.attack_vis_dagger
 
