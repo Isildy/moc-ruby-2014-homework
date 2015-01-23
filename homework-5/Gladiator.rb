@@ -53,6 +53,7 @@ trident_actions = {:attack => Proc.new{ |weapon| p "Strike #{weapon} in face"},
 									:fint => Proc.new{ |weapon| p "Apply #{weapon} feint"}
 									}
 
+									
 person = Gladiator.new(*response["gladiator"].values)
 person.generate_actions(response["gladiator"], trident_actions)
 
