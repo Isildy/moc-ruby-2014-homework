@@ -1,4 +1,8 @@
+require 'bundler/setup'
+Bundler.require(:default)
+require 'sinatra'
 require 'json'
+
 
 	RESPONSE = '{"gladiator":{"personal_data":{"name": "Staros", "gender":"male", "age":27},
 							"skills":["swordsman","spearman","bowmen"],
@@ -74,3 +78,19 @@ p "======== Lets fight!!!!!!!!!!!!!!!! ========"
 person.fint_vis_trident
 person.defance_vis_net
 person.attack_vis_dagger
+
+get '/' do
+  person = Gladiator.new(*response["gladiator"].values)
+
+ "
+
+  <b><p> #{person.how_old?}</p></b>
+  <b><p> #{person.spearman?}</p></b>
+  <b><p> #{person.have_weapon?}</p></b>
+
+  ======== Gladiator enters the arena ========
+    <img src='111.jpg' height='42' width='42'> "
+
+ #{send_file('111.jpg', :disposition => 'inline')}
+
+end
