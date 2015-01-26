@@ -3,7 +3,5 @@
 
 # This file can be used to start Padrino,
 # just execute it from the command line.
-require File.expand_path("../config/Gladiator.rb", __FILE__)
-
-
-run Rack::URLMap.new  "/"=>Sinatra::Application
+require File.expand_path("../boot.rb", __FILE__)
+run Rack::URLMap.new "/"=>Sinatra::Application
