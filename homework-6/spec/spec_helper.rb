@@ -3,6 +3,7 @@ require 'rspec'
 require 'capybara'
 require 'capybara/rspec'
 require 'factory_girl_rails'
+require 'database_cleaner'
 
 require File.expand_path '../../boot.rb', __FILE__
 FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
@@ -16,8 +17,17 @@ module RSpecMixin
 end
 
 
-RSpec.configure do |c| 
- c.include RSpecMixin 
- c.include FactoryGirl::Syntax::Methods
+RSpec.configure do |config| 
+ config.include RSpecMixin 
+ config.include FactoryGirl::Syntax::Methods
+ config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+ config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 

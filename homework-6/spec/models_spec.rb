@@ -66,9 +66,6 @@ describe "Amunition" do
              @amunition.description = nil
              @amunition.should_not be_valid
         end
-  end
-
-
 end
   context "associations" do
        it "should belongs_to gladiator" do
