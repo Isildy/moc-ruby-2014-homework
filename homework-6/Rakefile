@@ -1,0 +1,7 @@
+require 'rubygems'
+require 'fabrication'
+require 'faker'
+require 'active_record_migrations'
+require 'sinatra/activerecord/rake'
+require './model.rb'
+require './boot.rb'

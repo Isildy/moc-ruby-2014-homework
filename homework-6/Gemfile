@@ -1,0 +1,24 @@
+
+source "https://rubygems.org"
+gem 'sinatra', git: 'git@github.com:sinatra/sinatra.git'
+gem "sinatra-activerecord"
+gem "activerecord"
+gem "sqlite3"
+gem "active_record_migrations"
+gem "pg"
+
+gem "fabrication"
+gem "database_cleaner"
+
+gem "sinatra-reloader"
+gem "faker"
+
+group :test do
+  gem "rspec" 
+  gem "rspec-rails"
+  gem 'rest-client'
+  gem "factory_girl_rails"
+  gem 'rspec-collection_matchers'
+  gem "shoulda-matchers"
+  gem 'capybara', '2.1.0'
+end
