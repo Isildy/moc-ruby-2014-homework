@@ -12,6 +12,6 @@ FactoryGirl.define do
         amunition_type "arms"
         title "helmet"
         description "bronze closed helmet"
-        association :gladiator
+        association :gladiators#, :factory => :gladiator
    end
 end

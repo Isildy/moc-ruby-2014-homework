@@ -1,4 +1,4 @@
- ActiveRecord::Base.establish_connection(YAML.load_file(File.expand_path("./db/config.yml"))["development"])
+ ActiveRecord::Base.establish_connection(YAML.load_file(File.expand_path("./db/config.yml"))["test"])
 
 
 
