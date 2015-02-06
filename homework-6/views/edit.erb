@@ -1,0 +1,4 @@
+<h1> Edit infomation about gladiator  </h1>
+<% form_for subject, "/gladiators/#{subject.id}", method: :put do |f| %>
+<%= partial "form.erb", locals: {glad: glad, f: f} %>
+<% end %>

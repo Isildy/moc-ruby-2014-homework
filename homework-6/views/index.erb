@@ -1,9 +1,18 @@
-
+<table class="table table-bordered table-striped">
+	<thead>
+	<tr>
+		 <th>Name</th>
+		 <th>Age</th>
+		 <th>Gender</th>
+	 </thead>
+ <tbody>
 <% glads.each do |glad| %>
-  <h4><%= glad.name %></h3>
-<h4></h3>
-  <p>Age - <%= glad.age %></p>
-  <p>Gender - <%= glad.gender %></p>
-  	<p><a href="weapon/<%=glad.id%>">Weapon!</a></p>
-==========================================
+<tr>
+  <td><%= glad.name %></td>
+  <td><%= glad.age %></td>
+  <td><%= glad.gender %></td>
+  	<td> <%= link_to("Edit", "/gladiators/#{glad.id}/edit", class: "btn btn-success") %></td>
+</tr>
 <% end %>
+ </tbody>
+</table>
