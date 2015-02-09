@@ -17,13 +17,25 @@ get "/gladiators" do
 end
 
 get "/gladiators/new" do
-	glad = Gladiator.new
-	erb :index , locals:{glad: glad}
+	@glad = Gladiator.new
+	@glad.name = "Sparos"
+	@glad.age = 27
+	@glad.gender = "mele"
+
+	@weapon = Weapon.new
+
+	@amunition = Amunition.new
+	@amunition.title = "gladius"
+	@amunition.description = "short sword"
+	@amunition.resource = @weapon
+	@glad.amunitions << @amunition
+	@glad.saveredirect to("/gladiators")
+	erb :new , locals:{glad: glad}
 end
 
 get "/gladiators/:id/edit" do |id|
 	glad = Gladiator.find(id)
-	erb :index , locals:{glad: glad}
+	erb :edit , locals:{glad: glad}
 end
 
 post "/gladiators" do
@@ -41,7 +53,7 @@ put "/gladiators/:id" do |id|
 	if glad.save
 		redirect to("/gladiators/#{glad.id}")
 	else
-		erb :edit, locals: {subject: subject}
+		erb :edit, locals: {glad: glad}
 	end
 end
 

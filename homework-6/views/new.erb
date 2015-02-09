@@ -1,0 +1,5 @@
+
+<h1> New gladiator </h1>
+<% form_for glad, "/gladiators", :id => 'register' do |f| %>
+<%= partial "form.erb", locals: {glad: glad, f: f} %>
+<% end %>

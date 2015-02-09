@@ -11,34 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206112245) do
+ActiveRecord::Schema.define(version: 20150209122932) do
 
   create_table "amunitions", force: :cascade do |t|
-    t.string  "aumnition_type"
     t.string  "title"
     t.string  "description"
-    t.decimal "resource_id"
-    t.text    "resource_type"
+    t.integer "gladiator_id"
+    t.integer "resource_id"
+    t.string  "resource_type"
   end
 
-  create_table "bestiariys", force: :cascade do |t|
-    t.string "additional_equipment"
+  add_index "amunitions", ["gladiator_id"], name: "index_amunitions_on_gladiator_id"
+
+  create_table "arms", force: :cascade do |t|
   end
 
   create_table "gladiators", force: :cascade do |t|
     t.string  "name"
     t.integer "age"
     t.string  "gender"
-    t.decimal "weriors_id"
-    t.text    "weriors_type"
   end
 
-  create_table "murmillons", force: :cascade do |t|
-    t.string "role"
-  end
-
-  create_table "retariys", force: :cascade do |t|
-    t.string "additional_equipment"
+  create_table "weapons", force: :cascade do |t|
   end
 
 end

@@ -1,36 +1,33 @@
- ActiveRecord::Base.establish_connection(YAML.load_file(File.expand_path("./db/config.yml"))["test"])
-
+ActiveRecord::Base.establish_connection(YAML.load_file(File.expand_path("./db/config.yml"))["development"])
 
 
 class Gladiator<ActiveRecord::Base
+    has_many :amunitions
+
     validates :name, :presence => true
     validates :age, :presence => true
     validates :gender, :presence => true
     validates :name, :length => { :minimum => 3 }
-
-	belongs_to :weriors, :polymorphic => true, :dependent => :destroy
 end
 
-class Murmillon<ActiveRecord::Base
+class Arms<ActiveRecord::Base
 	has_many :amunitions, :as => :resource, :dependent => :destroy
-	has_one :gladiator, :as => :weriors, :dependent => :destroy
 end
 
-class Retariy<ActiveRecord::Base
+class Weapon<ActiveRecord::Base
 	has_many :amunitions, :as => :resource, :dependent => :destroy
-	has_one :gladiator, :as => :weriors, :dependent => :destroy
 end
 
-class Bestiariy<ActiveRecord::Base
-	has_many :amunitions, :as => :resource, :dependent => :destroy
-	has_one :gladiator, :as => :weriors, :dependent => :destroy
-end
 
 class Amunition<ActiveRecord::Base
-	validates :amunition_type, :presence => true
+	
+	belongs_to  :resource, :polymorphic => true
+	belongs_to  :gladiator
+
+
     validates :title, :presence => true
     validates :description, :presence => true
-
-	 belongs_to :resource, :polymorphic => true
+	# named_scope :weapons, :resource => { :resource_type => "Weapons" }
+	# named_scope :arms, :resource => { :resource_type => "Arms" }
 end
 
