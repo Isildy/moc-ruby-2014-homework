@@ -6,8 +6,9 @@ gem "activerecord"
 gem "sqlite3"
 gem "active_record_migrations"
 gem "pg"
-
 gem "fabrication"
+gem 'kaminari', require: %w( kaminari kaminari/hooks kaminari/sinatra)
+gem "padrino-helpers"
 
 
 gem "sinatra-reloader"

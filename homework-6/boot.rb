@@ -1,11 +1,18 @@
-require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
-
 require 'rubygems'
-require "sinatra"
 
-require './model.rb'
+require 'sinatra/base'
+require 'sinatra/contrib/all'
+require 'sinatra/reloader'
+require 'padrino-helpers'
+require 'kaminari'
+
+::Kaminari::Hooks.init
+register Kaminari::Helpers::SinatraHelpers
+register Padrino::Helpers
+
+require "./model"
 
 get "/" do
 	redirect to("/gladiators")
