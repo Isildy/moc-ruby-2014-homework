@@ -1,4 +1,6 @@
-
+<div class="row">
+<%= link_to "New", "/gladiators/new", class: "btn btn-primary col-md-2 col-md-offset-9" %>
+</div>
 <br/>
 <table class="table table-bordered table-striped">
 	<thead>
@@ -6,6 +8,9 @@
 		 <th>Name</th>
 		 <th>Age</th>
 		 <th>Gender</th>
+		 <th>Amunition type</th>
+		 <th>Title</th>
+		 <th>Description</th>
 	 </thead>
  <tbody>
 <% glads.each do |glad| %>
@@ -13,7 +18,14 @@
   <td><%= glad.name %></td>
   <td><%= glad.age %></td>
   <td><%= glad.gender %></td>
- 
+ 	<% glad.amunitions.each do |amunition| %>
+ 		<td><%= amunition.resource_type %></td>
+		<td><%= amunition.title %>  </td>
+		<td><%= amunition.description %></td>
+		<% end %>
+		 <td><% form_for glad, "/gladiators/#{glad.id}", method: :delete do |f| %><%= f.submit("Delete", "/gladiators/#{glad.id}", class: "btn btn-danger") %></td>
+		 <td><%= link_to("Edit", "/gladiators/#{glad.id}/edit", class: "btn btn-success") %>
+		<% end %> </td>
   	</td>
 </tr>
 <% end %>

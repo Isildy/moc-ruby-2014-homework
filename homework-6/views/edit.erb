@@ -1,4 +1,8 @@
-<h1> Edit infomation about gladiator  </h1>
-<% form_for subject, "/gladiators/#{glad.id}", method: :put do |f| %>
+<h3> Edit infomation about gladiator  </h3>
+
+<% form_for glad, "/gladiators/#{glad.id}", method: :put do |f| %>
 <%= partial "form.erb", locals: {glad: glad, f: f} %>
 <% end %>
+
+</br>
+<%= link_to "Add amunitions", "/gladiators/#{glad.id}/weapon/new", class: "btn btn-primary col-md-2 col-md-offset-9" %>

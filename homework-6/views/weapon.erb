@@ -1,7 +1,5 @@
+<h3>Add weapon to  <%= glad.name %></h3>
+ <% form_for glad, "/gladiators/#{glad.id}/weapon/new", method: :post do |f| %>
+<%= partial "amun_form.erb", locals: {amunition: amunition, f: f} %>
+<% end %>
 
-  <h4><%= glad.name %></h3>
-
-  <ul>
-	 <% glad.amunitions.each do |amunition| %>
-		<li><%= amunition.title %> -  <%= amunition.description %></li>
-		<% end %>

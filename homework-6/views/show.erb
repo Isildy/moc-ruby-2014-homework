@@ -1,0 +1,13 @@
+
+
+  <p><%= glad.name %></p>
+  <p><%= glad.age %></p>
+  <p><%= glad.gender %></p>
+ 	<% glad.amunitions.each do |amunition| %>
+ 		<p><li><%= amunition.resource_type %></li></p>
+		<p><li><%= amunition.title %> </li></p>
+		<p><li><%= amunition.description %></li></p>
+		<% end %>
+		<div class="row">
+<%= link_to "Add_amunitions", "/gladiators/#{glad.id}/weapon/new", class: "btn btn-primary col-md-2 col-md-offset-9" %>
+</div>
