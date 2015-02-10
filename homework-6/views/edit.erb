@@ -3,6 +3,25 @@
 <% form_for glad, "/gladiators/#{glad.id}", method: :put do |f| %>
 <%= partial "form.erb", locals: {glad: glad, f: f} %>
 <% end %>
+<h4> Amunitions: </h4>
 
-</br>
+
+<table class="table table-bordered table-striped">
+	<thead>
+	<tr>
+		 <th>Type</th>
+		 <th>Title</th>
+		 <th>Description</th>
+ <tbody>
+<% glad.amunitions.each do |amunition| %>
+ 		<td><%= amunition.resource_type %> </td>
+ 		<td><%= amunition.title %> </td>
+ 		<td><%= amunition.description %> </td>
+		
+  	</td>
+</tr>
+<% end %>
+ </tbody>
+</table>
+
 <%= link_to "Add amunitions", "/gladiators/#{glad.id}/weapon/new", class: "btn btn-primary col-md-2 col-md-offset-9" %>

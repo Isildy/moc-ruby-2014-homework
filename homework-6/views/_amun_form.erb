@@ -2,11 +2,11 @@
 	<%= f.error_messages %>
 	<%= f.text_field_block :title, class: "form-control" %>
 	<%= f.text_field_block :description, class: "form-control" %>
+	<%= f.text_field_block :resource_type, class: "form-control" %>
 </div>
 <div class="row">
 <div class="col-md-2 col-md-offset-8">
 <%= f.submit "Save", class: "btn btn-primary" %>
 <%= link_to "Back", "/gladiators", class: "btn btn-success" %>
-
 </div>
 </div>

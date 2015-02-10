@@ -26,12 +26,12 @@ end
 
 get "/gladiators" do
   glads = Gladiator.all
-  erb :index , locals:{glads: glads}, layout: "layout"
+  erb :index, locals:{glads: glads}, layout: "layout"
 end
 
 get "/gladiators/new" do
 	glad = Gladiator.new
-	erb :new , locals:{glad: glad}, layout: "layout"
+	erb :new, locals:{glad: glad}, layout: "layout"
 end
 
 get "/gladiators/:id/edit" do |id|
@@ -67,26 +67,30 @@ end
 get '/gladiators/:id' do |id|
 
   glad = Gladiator.find(id.to_i)
-  erb :show , locals:{glad: glad}, layout: "layout"
+  erb :show, locals:{glad: glad}, layout: "layout"
 
 end 
 
 get "/gladiators/:id/weapon/new" do |id|
 	glad = Gladiator.find(id)
 	amunition = Amunition.new
-	erb :weapon , locals:{glad: glad, amunition: amunition}, layout: "layout"
+	erb :weapon, locals:{glad: glad, amunition: amunition}, layout: "layout"
 end
 
-|id|
 post "/gladiators/:id/weapon/new" do |id|
 	glad = Gladiator.find(id)
-	amunition = Amunitions.new(params[:gladiator])
+	amunition = Amunition.new(params[:gladiator])
 	glad.amunitions << amunition
 	if glad.save
-	redirect to("/gladiators/")
+	redirect to("/gladiators")
 	else
 	erb :weapon, locals: {glad: glad, amunition: amunition }, layout: "layout"
 	end
 end
 
 
+delete "/gladiators/weapon/:id" do |id|
+	amun = Amunition.find(id)
+	amun.destroy
+	redirect to("/gladiators")
+end

@@ -1,3 +1,4 @@
+</br>
 <div class="row">
 <%= link_to "New", "/gladiators/new", class: "btn btn-primary col-md-2 col-md-offset-9" %>
 </div>
@@ -25,7 +26,7 @@
 		<% end %>
 		 <td><% form_for glad, "/gladiators/#{glad.id}", method: :delete do |f| %><%= f.submit("Delete", "/gladiators/#{glad.id}", class: "btn btn-danger") %></td>
 		 <td><%= link_to("Edit", "/gladiators/#{glad.id}/edit", class: "btn btn-success") %>
-		<% end %> </td>
+		<% end %></td>
   	</td>
 </tr>
 <% end %>
